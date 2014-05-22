@@ -22,6 +22,7 @@ function display_posts_for_current_author_only($query)
 	}
 	return $query;
 }
+
 function restrict_admin()
 {
 	add_filter('pre_get_posts', 'display_posts_for_current_author_only');
