@@ -14,10 +14,17 @@ function display_posts_for_current_author_only($query)
 {
 	if(!current_user_can('administrator')) 
 	{
-		global $user_ID;
-		$query->set('author',  $user_ID);
+		if(current_user_can('shop_manager')) 
+		{
+			global $user_ID;
+			$query->set('author',  $user_ID);
+		}
 	}
 	return $query;
 }
-add_filter('pre_get_posts', 'display_posts_for_current_author_only');
+function restrict_admin()
+{
+	add_filter('pre_get_posts', 'display_posts_for_current_author_only');
+}
+add_action( 'admin_init', 'restrict_admin', 1 );
 ?>
